@@ -1,15 +1,11 @@
-# Partitioning problem:
-
-## Problem Statement
+# Partitioning problem
 
 An arbitrary list of positive integers of any length and in any order
 Determine if the list is partitionable or not. A partitioned list is one where it can be split into 2 sub-lists with equal sum. A sub-list can be any arbitrary (any set of numbers in any order) selection of numbers out of the parent list.
 
-Enumerate the list of cases to solve to minimize execution time and provide the Order of the algorithm
-
-Provide code showing the implementation in Python.
 
 ## Example:
+Enumerate the list of cases to solve to minimize execution time
 
 ```bash
 List = 1,2,3,4,5,6,7 = Partitionable 
@@ -21,13 +17,12 @@ List = 1,10,5,21,4,1 = Partitionable
 ## Code and Alogrithm
 There are two main steps to solve this problem:
 
-- Calculate sum of the array. If sum is odd, there can not be two subsets with equal sum, so return false.
+- Calculate sum of the array. If sum is odd, there can not be two subsets with equal sum, so return `false`.
 
-- If sum of array elements is even, calculate sum/2 and find a subset of array with sum equal to sum/2.
-A class based solution which 
+- If sum of array elements is even, calculate `sum/2` and find a subset of array with sum equal to `sum/2`.
 
 ### Solution
-  A class named `Partionable`, which exposes a method `checkSubset`, which is called recursively by itself, once invoked by canPartion method for the instance of `Partionable` class.
+  A class named `Partionable`, which exposes a method `checkSubset`, which is called recursively by itself, once invoked by `canPartion` method for the instance of `Partionable` class.
   Let `checkSubset(arr, n, sum/2)` be the function that returns true if 
         there is a subset of `arr[0..n-1]` with sum equal to `sum/2`
 
@@ -40,8 +35,8 @@ The problem can be divided into two subproblems
 If any of the above the above subproblems return `true`, then return `true`. 
 
 ```
-checkSubset (arr, n, sum/2) = checkSubset (arr, n-1, sum/2) or
-                            checkSubset (arr, n-1, sum/2 - arr[n-1])
+self.checkSubset (arr, n, sum/2) = self.checkSubset (arr, n-1, sum/2) or
+                            self.checkSubset (arr, n-1, sum/2 - arr[n-1])
 ```
 ```py
 
@@ -83,4 +78,5 @@ class Partionable:
 ```
 
 ### Time Complexity
-O(2^n) In worst case, this solution tries two possibilities (whether to include or exclude) for every element.
+ *O(2^n)* <br>
+ In worst case, this solution tries two possibilities (whether to include or exclude) for every element.
