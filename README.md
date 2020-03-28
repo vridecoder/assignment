@@ -11,12 +11,76 @@ Provide code showing the implementation in Python.
 
 ## Example:
 
+```bash
 List = 1,2,3,4,5,6,7 = Partitionable 
 List = 1,10,5,21,4 = Not Partitionable
 List = 1,10,5,21,4,1 = Partitionable
+```
 
 
-## Code
+## Code and Alogrithm
+There are two main steps to solve this problem:
 
+- Calculate sum of the array. If sum is odd, there can not be two subsets with equal sum, so return false.
 
-## Alogrithm
+- If sum of array elements is even, calculate sum/2 and find a subset of array with sum equal to sum/2.
+A class based solution which 
+
+### Solution
+  A class named `Partionable`, which exposes a method `checkSubset`, which is called recursively by itself, once invoked by canPartion method for the instance of `Partionable` class.
+  Let `checkSubset(arr, n, sum/2)` be the function that returns true if 
+        there is a subset of `arr[0..n-1]` with sum equal to `sum/2`
+
+The problem can be divided into two subproblems
+- `checkSubset()` without considering last element 
+    `(reducing n to n-1)`
+- `checkSubset` considering the last element 
+    `(reducing sum/2 by arr[n-1] and n to n-1)`
+
+If any of the above the above subproblems return `true`, then return `true`. 
+
+```
+checkSubset (arr, n, sum/2) = checkSubset (arr, n-1, sum/2) or
+                            checkSubset (arr, n-1, sum/2 - arr[n-1])
+```
+```py
+
+class Partionable:
+    def __init__(self, numbers):
+        self.data = numbers
+        # Calculate sum of the elements in array
+        self.sum = reduce(lambda a, b: a+b, numbers)
+        self.length = len(numbers)
+
+    # Returns true if self.data can be partitioned in two
+    # subsets of equal sum, otherwise false
+    def canPartion(self):
+        # If self.sum is odd, there cannot be two subsets
+        # with equal sum
+        if self.sum % 2 != 0:
+            return False
+
+        # Find if there is subset with sum equal to
+        # half of total sum
+        return self.checkSubset(self.data, self.length, self.sum // 2)
+
+    # Returns true if given array has subset of sum
+    def checkSubset(self, arr, n, sum):
+        if sum == 0:
+            return True
+        if n == 0 and sum != 0:
+            return False
+        # If last element is greater than sum, then
+        # ignore it
+        if arr[n-1] > sum:
+            return self.checkSubset (arr, n-1, sum)
+
+        # If not, see if sum can be obtained by including the last element
+        # or excluding the last element
+
+        return self.checkSubset (arr, n-1, sum) or self.checkSubset (arr, n-1, sum-arr[n-1])
+
+```
+
+### Time Complexity
+O(2^n) In worst case, this solution tries two possibilities (whether to include or exclude) for every element.
