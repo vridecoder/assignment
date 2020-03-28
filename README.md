@@ -80,3 +80,9 @@ class Partionable:
 ### Time Complexity
  *O(2^n)* <br>
  In worst case, this solution tries two possibilities (whether to include or exclude) for every element.
+
+### Execution
+
+```bash
+    $ python main.py
+```
