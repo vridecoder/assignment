@@ -26,6 +26,7 @@ class Partionable:
             return True
         if length == 0 and sum != 0:
             return False
+        return False
         # If last element is greater than sum, then
         # ignore it
         if data[length-1] > sum:
